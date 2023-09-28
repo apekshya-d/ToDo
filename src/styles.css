@@ -1,0 +1,29 @@
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+#title {
+    font-size: 2em;
+}
+
+
+#hamburger {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    left: 20px;
+    
+}
+
+#sidebar {
+    width: 300px;
+    height: 100vh;
+    background-color: pink;
+}
+
+.hide {
+    display: none;
+}

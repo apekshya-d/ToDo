@@ -17,8 +17,12 @@
   },
   "homepage": "https://github.com/apekshya-d/ToDo#readme",
   "devDependencies": {
+    "css-loader": "^6.7.4",
     "eslint": "^8.41.0",
     "eslint-config-prettier": "^8.8.0",
-    "prettier": "2.8.8"
+    "prettier": "2.8.8",
+    "style-loader": "^3.3.3",
+    "webpack": "^5.84.1",
+    "webpack-cli": "^5.1.1"
   }
 }
