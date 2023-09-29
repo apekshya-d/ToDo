@@ -1,4 +1,4 @@
-import { makeList, fakeListArray } from "../lib/list";
+import { makeList, projectListArray } from "../lib/project";
 
 export function buildSideBar() {
   const sideBar = document.querySelector("#sidebar");
@@ -26,22 +26,22 @@ export function buildSideBar() {
     bottomBar.append(makeListContainer);
   });
 
-  const list = document.createElement("ul");
-  list.setAttribute("id", "list");
-  displayList();
+  const projectList = document.createElement("ul");
+  projectList.setAttribute("id", "projectList");
+  displayProjectList();
 
-  function displayList() {
-    for (let i = 0; i < fakeListArray.length; i++) {
+  function displayProjectList() {
+    for (let i = 0; i < projectListArray.length; i++) {
       let li = document.createElement("li");
-      li.innerHTML = fakeListArray[i].name;
-      list.appendChild(li);
+      li.innerHTML = projectListArray[i].name;
+      projectList.appendChild(li);
     }
   }
 
-  bottomBar.append(list, plusBtn);
+  bottomBar.append(projectList, plusBtn);
 
   sideBar.append(topBar, bottomBar);
 
-  console.log(fakeListArray);
+  console.log(projectListArray);
   return sideBar;
 }
