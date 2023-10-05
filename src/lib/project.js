@@ -3,6 +3,7 @@ import { Task } from "./task";
 function makeList(title) {
   let newProject = new Project(title);
   projectListArray.push(newProject);
+  return newProject;
 }
 
 class Project {
@@ -10,8 +11,8 @@ class Project {
     this.name = name;
     this.taskList = [];
   }
-  addTask(title) {
-    let newTask = new Task(title);
+  addTask(name, description, date) {
+    let newTask = new Task(name, description, date);
     this.taskList.push(newTask);
   }
 }

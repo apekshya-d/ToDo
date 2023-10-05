@@ -18,12 +18,33 @@
     
 }
 
+#mainContainer {
+    display: flex;
+    flex-direction: row;
+}
+
 #sidebar {
-    width: 300px;
+    width: 30%;
     height: 100vh;
     background-color: pink;
+}
+
+#mainSection {
+    background-color: rgb(250, 187, 111);
+    width: 70%;
+    height: 100vh;
 }
 
 .hide {
     display: none;
 }
+
+h3{
+    background-color: rgb(243, 231, 205);
+}
+
+#addTaskBtn{
+    width: 50px;
+    height: 35px;
+}
+

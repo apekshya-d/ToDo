@@ -1,10 +1,11 @@
 import { makeList, projectListArray } from "../lib/project";
+import { buildMainSection } from "./mainSection";
 
 export function buildSideBar() {
   const sideBar = document.querySelector("#sidebar");
+  sideBar.innerHTML = "";
   const topBar = document.createElement("div");
   const bottomBar = document.createElement("div");
-  sideBar.innerHTML = "";
 
   const plusBtn = document.createElement("button");
   plusBtn.addEventListener("click", () => {
@@ -15,8 +16,9 @@ export function buildSideBar() {
 
     const addBtn = document.createElement("button");
     addBtn.addEventListener("click", () => {
-      makeList(listNameInput.value);
+      const currentObj = makeList(listNameInput.value);
       buildSideBar();
+      buildMainSection(currentObj);
       makeListContainer.classList.add("hide");
     });
 
