@@ -15,6 +15,9 @@ class Project {
     let newTask = new Task(name, description, date);
     this.taskList.push(newTask);
   }
+  removeTask(index) {
+    this.taskList.splice(index, 1);
+  }
 }
 
 const projectListArray = [new Project("test1"), new Project("test2")];

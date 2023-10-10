@@ -35,7 +35,7 @@ export function buildSideBar() {
   function displayProjectList() {
     for (let i = 0; i < projectListArray.length; i++) {
       let li = document.createElement("li");
-      li.innerHTML = projectListArray[i].name;
+      li.innerHTML = `<a href = '#'> ${projectListArray[i].name}</a>`;
       projectList.appendChild(li);
     }
   }

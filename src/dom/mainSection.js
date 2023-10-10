@@ -1,5 +1,8 @@
+import { buildSideBar } from "./sidebar";
+
 function buildMainSection(page) {
   const mainSection = document.querySelector("#mainSection");
+  mainSection.innerHTML = "";
 
   if (page === undefined) {
     return;
@@ -22,6 +25,30 @@ function buildMainSection(page) {
     addTaskBtn.addEventListener("click", () => {
       mainSection.append(buildForm(page));
     });
+  }
+  const taskList = document.createElement("ul");
+  taskList.setAttribute("id", "taskList");
+  displayTaskList(page);
+
+  function displayTaskList(page) {
+    taskList.innerHTML = "";
+    for (let i = 0; i < page.taskList.length; i++) {
+      let li = document.createElement("li");
+      li.innerHTML = `<div>
+          <h4>${page.taskList[i].name}</h4>
+          <div class = "taskDescription"> ${page.taskList[i].description}</div>
+          <div class = "taskDate">${page.taskList[i].date}</div>
+          <button class = "taskDeleteBtn">'X'</button>
+          </div> `;
+      taskList.appendChild(li);
+      const taskDeleteBtn = li.querySelector(".taskDeleteBtn");
+      taskDeleteBtn.addEventListener("click", () => {
+        //page.taskList.splice(page.taskList[i], 1);
+        page.removeTask(i);
+        displayTaskList(page);
+      });
+    }
+    mainSection.append(taskList);
   }
 }
 
@@ -60,6 +87,7 @@ function buildForm(page) {
   taskAdd.addEventListener("click", () => {
     page.addTask(taskTitle.value, taskDetails.value, taskDate.value);
     taskForm.parentElement.removeChild(taskForm);
+    buildMainSection(page);
   });
 
   taskCancel.addEventListener("click", () => {
