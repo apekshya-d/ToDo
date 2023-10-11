@@ -3,10 +3,16 @@ class Task {
     this.name = name;
     this.description = description;
     this.date = date;
+    this.important = false;
   }
-  add() {}
 
-  cancel() {}
+  setImportant() {
+    if (this.important == false) {
+      this.important = true;
+    } else {
+      this.important = false;
+    }
+  }
 }
 
 export { Task };

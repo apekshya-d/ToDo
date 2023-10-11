@@ -38,13 +38,27 @@ function buildMainSection(page) {
           <h4>${page.taskList[i].name}</h4>
           <div class = "taskDescription"> ${page.taskList[i].description}</div>
           <div class = "taskDate">${page.taskList[i].date}</div>
-          <button class = "taskDeleteBtn">'X'</button>
+          <button class = "taskImportantBtn">Important</button>
+          <button class = "taskEditBtn">Edit</button>
+          <button class = "taskDeleteBtn">✖️</button>
           </div> `;
       taskList.appendChild(li);
+
       const taskDeleteBtn = li.querySelector(".taskDeleteBtn");
       taskDeleteBtn.addEventListener("click", () => {
-        //page.taskList.splice(page.taskList[i], 1);
         page.removeTask(i);
+        displayTaskList(page);
+      });
+
+      const taskImportantBtn = li.querySelector(".taskImportantBtn");
+      if (page.taskList[i].important) {
+        taskImportantBtn.style.color = "yellow";
+      } else {
+        taskImportantBtn.style.color = "black";
+      }
+
+      taskImportantBtn.addEventListener("click", () => {
+        page.taskList[i].setImportant();
         displayTaskList(page);
       });
     }
