@@ -44,12 +44,6 @@ function buildMainSection(page) {
           </div> `;
       taskList.appendChild(li);
 
-      const taskDeleteBtn = li.querySelector(".taskDeleteBtn");
-      taskDeleteBtn.addEventListener("click", () => {
-        page.removeTask(i);
-        displayTaskList(page);
-      });
-
       const taskImportantBtn = li.querySelector(".taskImportantBtn");
       if (page.taskList[i].important) {
         taskImportantBtn.style.color = "yellow";
@@ -61,63 +55,92 @@ function buildMainSection(page) {
         page.taskList[i].setImportant();
         displayTaskList(page);
       });
+
+      const taskEditBtn = li.querySelector(".taskEditBtn");
+      taskEditBtn.addEventListener("click", () => {
+        mainSection.append(editTask(page.taskList[i], page));
+      });
+
+      const taskDeleteBtn = li.querySelector(".taskDeleteBtn");
+      taskDeleteBtn.addEventListener("click", () => {
+        page.removeTask(i);
+        displayTaskList(page);
+      });
     }
     mainSection.append(taskList);
   }
 }
 
 function buildForm(page) {
-  const taskForm = document.createElement("div");
+  const taskForm = document.createElement("form");
+  taskForm.innerHTML = `
+    <div>
+    <label for = "taskTitle">Title</label>
+    <input type = "text" name = "taskTitle" id="taskTitle"></input>
+    <label for = "">Details</label>
+    <input type = "text" name = "taskDetails" id = "taskDetails"></input>
+    <label for = "taskDate"></label>
+    <input type = "date" name = "taskDate" id = "taskDate"></input>
+    <button id = "taskAddBtn">Add</button>
+    <button id = "taskCancelBtn">Cancel</button>
+    </div>
+  `;
 
-  const taskTitle = document.createElement("input");
-  taskTitle.setAttribute("type", "text");
-  taskTitle.setAttribute("name", "taskTitle");
-  taskTitle.setAttribute("id", "taskTitle");
-  const taskTitleLabel = document.createElement("label");
-  taskTitleLabel.setAttribute("for", "taskTitle");
-  taskTitleLabel.textContent = "Title";
+  const taskTitle = taskForm.querySelector("#taskTitle");
+  const taskDetails = taskForm.querySelector("#taskDetails");
+  const taskDate = taskForm.querySelector("#taskDate");
+  const taskCancelBtn = taskForm.querySelector("#taskCancelBtn");
 
-  const taskDetails = document.createElement("input");
-  taskDetails.setAttribute("type", "text");
-  taskDetails.setAttribute("name", "taskDetails");
-  taskDetails.setAttribute("id", "taskDetails");
-  const taskDetailsLabel = document.createElement("label");
-  taskDetailsLabel.setAttribute("for", "taskDetails");
-  taskDetailsLabel.textContent = "Details";
-
-  const taskDate = document.createElement("input");
-  taskDate.setAttribute("type", "date");
-  taskDate.setAttribute("name", "taskDate");
-  taskDate.setAttribute("id", "taskDate");
-  const taskDateLabel = document.createElement("label");
-  taskDateLabel.setAttribute("for", "taskDate");
-  taskDateLabel.textContent = "Date";
-
-  const taskAdd = document.createElement("button");
-  taskAdd.textContent = "Add";
-  const taskCancel = document.createElement("button");
-  taskCancel.textContent = "Cancel";
-
-  taskAdd.addEventListener("click", () => {
+  taskForm.addEventListener("submit", (e) => {
+    e.preventDefault();
     page.addTask(taskTitle.value, taskDetails.value, taskDate.value);
     taskForm.parentElement.removeChild(taskForm);
     buildMainSection(page);
   });
 
-  taskCancel.addEventListener("click", () => {
+  taskCancelBtn.addEventListener("click", () => {
     taskForm.parentElement.removeChild(taskForm);
   });
-  taskForm.append(
-    taskTitleLabel,
-    taskTitle,
-    taskDetailsLabel,
-    taskDetails,
-    taskDateLabel,
-    taskDate,
-    taskAdd,
-    taskCancel
-  );
+
   return taskForm;
+}
+
+function editTask(task, page) {
+  let editTaskForm = document.createElement("form");
+  editTaskForm.innerHTML = `
+  <div>
+  <label for = "taskTitle">Title</label>
+  <input type = "text" name = "taskTitle" id="taskTitle"></input>
+  <label for = "">Details</label>
+  <input type = "text" name = "taskDetails" id = "taskDetails"></input>
+  <label for = "taskDate"></label>
+  <input type = "date" name = "taskDate" id = "taskDate"></input>
+  <button id = "taskUpdateBtn">Update</button>
+  <button >Cancel</button>
+  </div>
+  `;
+
+  const taskTitle = editTaskForm.querySelector("#taskTitle");
+  taskTitle.value = task.name;
+  const taskDetails = editTaskForm.querySelector("#taskDetails");
+  taskDetails.value = task.description;
+  const taskDate = editTaskForm.querySelector("#taskDate");
+  taskDate.value = task.date;
+
+  function updateTask(task) {
+    task.name = taskTitle.value;
+    task.description = taskDetails.value;
+    task.date = taskDate.value;
+  }
+
+  editTaskForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    updateTask(task);
+    editTaskForm.parentElement.removeChild(editTaskForm);
+    buildMainSection(page);
+  });
+
+  return editTaskForm;
 }
 
 export { buildMainSection };
