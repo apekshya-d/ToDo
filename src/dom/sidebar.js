@@ -1,5 +1,6 @@
 import { makeList, projectListArray } from "../lib/project";
 import { buildMainSection } from "./mainSection";
+import { AllTaskPage } from "../pages/allTasks";
 
 export function buildSideBar() {
   const sideBar = document.querySelector("#sidebar");
@@ -17,6 +18,7 @@ export function buildSideBar() {
   task.addEventListener("click", (e) => {
     switch (e.target.dataset.page) {
       case "allTask":
+        buildMainSection(new AllTaskPage());
         break;
       case "today":
         break;
