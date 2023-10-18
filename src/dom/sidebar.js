@@ -4,7 +4,29 @@ import { buildMainSection } from "./mainSection";
 export function buildSideBar() {
   const sideBar = document.querySelector("#sidebar");
   sideBar.innerHTML = "";
+
   const topBar = document.createElement("div");
+  topBar.innerHTML = `
+    <a class = "taskSelector" href = '#' data-page="allTask">All Tasks</a>
+    <a class = "taskSelector" href = '#' data-page="today">Today</a>
+    <a class = "taskSelector" href = '#' data-page="7days">7 Days</a>
+    <a class = "taskSelector" href = '#' data-page="important">Important</a>
+  `;
+
+  const task = topBar.querySelector(".taskSelector");
+  task.addEventListener("click", (e) => {
+    switch (e.target.dataset.page) {
+      case "allTask":
+        break;
+      case "today":
+        break;
+      case "7days":
+        break;
+      case "important":
+        break;
+    }
+  });
+
   const bottomBar = document.createElement("div");
 
   const plusBtn = document.createElement("button");
@@ -35,8 +57,13 @@ export function buildSideBar() {
   function displayProjectList() {
     for (let i = 0; i < projectListArray.length; i++) {
       let li = document.createElement("li");
-      li.innerHTML = `<a href = '#'> ${projectListArray[i].name}</a>`;
+      li.innerHTML = `<a class = "currentProject" href = '#'> ${projectListArray[i].name}</a>`;
       projectList.appendChild(li);
+
+      let currentProject = li.querySelector(".currentProject");
+      currentProject.addEventListener("click", () => {
+        buildMainSection(projectListArray[i]);
+      });
     }
   }
 
