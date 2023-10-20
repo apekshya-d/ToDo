@@ -1,6 +1,7 @@
 import { makeList, projectListArray } from "../lib/project";
 import { buildMainSection } from "./mainSection";
 import { AllTaskPage } from "../pages/allTasks";
+import { TodayPage } from "../pages/today";
 
 export function buildSideBar() {
   const sideBar = document.querySelector("#sidebar");
@@ -14,20 +15,23 @@ export function buildSideBar() {
     <a class = "taskSelector" href = '#' data-page="important">Important</a>
   `;
 
-  const task = topBar.querySelector(".taskSelector");
-  task.addEventListener("click", (e) => {
-    switch (e.target.dataset.page) {
-      case "allTask":
-        buildMainSection(new AllTaskPage());
-        break;
-      case "today":
-        break;
-      case "7days":
-        break;
-      case "important":
-        break;
-    }
-  });
+  const allTask = topBar.querySelectorAll(".taskSelector");
+  for (let task of allTask) {
+    task.addEventListener("click", (e) => {
+      switch (e.target.dataset.page) {
+        case "allTask":
+          buildMainSection(new AllTaskPage());
+          break;
+        case "today":
+          buildMainSection(new TodayPage());
+          break;
+        case "7days":
+          break;
+        case "important":
+          break;
+      }
+    });
+  }
 
   const bottomBar = document.createElement("div");
 
