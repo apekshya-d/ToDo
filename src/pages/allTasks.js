@@ -3,11 +3,14 @@ import { projectListArray } from "../lib/project";
 class AllTaskPage {
   constructor() {
     this.name = "All Tasks";
-    this.taskList = [];
+  }
 
+  get taskList() {
+    let taskList = [];
     for (let i = 0; i < projectListArray.length; i++) {
-      this.taskList = this.taskList.concat(projectListArray[i].taskList);
+      taskList = taskList.concat(projectListArray[i].taskList);
     }
+    return taskList;
   }
 }
 

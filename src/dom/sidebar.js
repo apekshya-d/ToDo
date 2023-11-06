@@ -2,6 +2,8 @@ import { makeList, projectListArray } from "../lib/project";
 import { buildMainSection } from "./mainSection";
 import { AllTaskPage } from "../pages/allTasks";
 import { TodayPage } from "../pages/today";
+import { ThisWeekPage } from "../pages/thisWeek";
+import { ImportantPage } from "../pages/important";
 
 export function buildSideBar() {
   const sideBar = document.querySelector("#sidebar");
@@ -26,8 +28,10 @@ export function buildSideBar() {
           buildMainSection(new TodayPage());
           break;
         case "7days":
+          buildMainSection(new ThisWeekPage());
           break;
         case "important":
+          buildMainSection(new ImportantPage());
           break;
       }
     });
