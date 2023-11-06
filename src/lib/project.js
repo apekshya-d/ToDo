@@ -15,10 +15,11 @@ class Project {
     let newTask = new Task(name, description, date);
     this.taskList.push(newTask);
   }
-  removeTask(index) {
+  removeTask(task) {
+    let index = this.taskList.indexOf(task);
     this.taskList.splice(index, 1);
   }
 }
 
 const projectListArray = [new Project("test1"), new Project("test2")];
-export { makeList, projectListArray };
+export { makeList, projectListArray, Project };

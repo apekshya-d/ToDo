@@ -1,4 +1,5 @@
-import { buildSideBar } from "./sidebar";
+import { Project } from "../lib/project";
+import { projectListArray } from "../lib/project";
 
 function buildMainSection(page) {
   const mainSection = document.querySelector("#mainSection");
@@ -13,10 +14,7 @@ function buildMainSection(page) {
 
   mainSection.append(projectTitle);
 
-  if (
-    projectTitle.textContent !== "All Tasks" &&
-    projectTitle.textContent !== ""
-  ) {
+  if (page instanceof Project) {
     const addTaskBtn = document.createElement("button");
     addTaskBtn.textContent = "Add Task";
     addTaskBtn.setAttribute("id", "addTaskBtn");
@@ -63,7 +61,7 @@ function buildMainSection(page) {
 
       const taskDeleteBtn = li.querySelector(".taskDeleteBtn");
       taskDeleteBtn.addEventListener("click", () => {
-        page.removeTask(i);
+        page.taskList[i].remove();
         displayTaskList(page);
       });
     }

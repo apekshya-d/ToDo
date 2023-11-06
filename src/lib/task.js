@@ -1,3 +1,5 @@
+import { projectListArray } from "./project";
+
 class Task {
   constructor(name, description, date) {
     this.name = name;
@@ -11,6 +13,14 @@ class Task {
       this.important = true;
     } else {
       this.important = false;
+    }
+  }
+  remove() {
+    for (let j = 0; j < projectListArray.length; j++) {
+      if (projectListArray[j].taskList.includes(this)) {
+        projectListArray[j].removeTask(this);
+        break;
+      }
     }
   }
 }
